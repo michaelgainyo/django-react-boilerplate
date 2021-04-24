@@ -33,7 +33,7 @@ Build the project
 ```
 npm run build
 cd ..
-./manage.py collectstatic
+./manage.py collectstatic --noinput
 ./manage.py collectbase
 ./manage.py runserver
 ```
