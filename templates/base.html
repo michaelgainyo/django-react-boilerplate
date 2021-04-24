@@ -1,0 +1,23 @@
+{% extends 'base-react.html' %}
+
+{% block head %}
+    <title>Django react app</title>
+{% endblock head %}
+
+<style>
+{% block css %}
+    .wrapper{text-align:center;}
+{% endblock css %}
+</style>
+
+{% block body %}
+
+    {% block main %}
+        <div class="wrapper">
+            <h1>This is django</h1>
+        </div>
+    {% endblock main %}
+
+    {{ block.super }}
+
+{% endblock body %}
