@@ -1,7 +1,9 @@
 import os
-
+import shutil
 from bs4 import BeautifulSoup
+
 from django.conf import settings
+from django.core.management import call_command
 from django.core.management.base import BaseCommand
 
 index_path = os.path.join(settings.BUILD_DIR, 'index.html')
@@ -9,10 +11,21 @@ output_path = os.path.join(settings.TEMPLATES_DIR, 'base-react.html')
 
 
 class Command(BaseCommand):
+    help = 'Collect React index.html and static files'
+
     def handle(self, *args, **kwargs):
+
+        self.stdout.write('Collecting static files ...')
+
+        call_command(
+            'collectstatic', interactive=False,
+            clear=True, verbosity=0
+        )
+
         exists = os.path.exists(index_path)
         if not exists:
             # print or raise error
+            self.stdout.write(self.style.ERROR(f'No index path'))
             return
 
         html = open(index_path).read()
