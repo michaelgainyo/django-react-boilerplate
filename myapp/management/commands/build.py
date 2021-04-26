@@ -1,4 +1,5 @@
 import os
+import subprocess
 from bs4 import BeautifulSoup
 
 from django.conf import settings
@@ -13,9 +14,15 @@ class Command(BaseCommand):
     help = 'Collect React index.html and static files'
 
     def handle(self, *args, **kwargs):
+        client_dir = getattr(settings, 'CLIENT_DIR', 'client')
+        if not os.path.exists(client_dir):
+            self.stdout.write(self.style.ERROR(f'No client directory found'))
+            return
+
+        self.stdout.write('Building client app ...')
+        subprocess.run(['npm', 'run', 'build'], cwd=client_dir)
 
         self.stdout.write('Collecting static files ...')
-
         call_command(
             'collectstatic', interactive=False,
             clear=True, verbosity=0

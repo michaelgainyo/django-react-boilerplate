@@ -31,8 +31,6 @@ npm install
 Build the project
 
 ```
-npm run build
-cd ..
 ./manage.py build
 ./manage.py runserver
 ```
