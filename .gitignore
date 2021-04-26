@@ -2,7 +2,7 @@
 # Django stuff:
 */media/
 media/
-# static/
+static/
 *.log
 *.pot
 *.pyc
@@ -11,6 +11,7 @@ db.sqlite3
 db.sqlite3-journal
 .vscode/
 
+templates/base-react.html
 config/settings/production.py
 
 .DS_Store
