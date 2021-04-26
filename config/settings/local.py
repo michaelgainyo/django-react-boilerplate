@@ -2,11 +2,12 @@ from .base import *
 
 SECRET_KEY = 'my-secret-key-goes-here'
 
-CORS_ORIGIN = 'http://localhost:3000/'
+CORS_ORIGIN = 'http://127.0.0.1:3000'
 
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+
 
 DATABASES = {
     'default': {
@@ -14,6 +15,13 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+MIDDLEWARE = [
+    # CORS
+    'config.middleware.CORSMiddleware',
+
+    *MIDDLEWARE,
+]
 
 # MEDIA & STATIC
 
