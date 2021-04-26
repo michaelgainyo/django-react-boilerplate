@@ -1,5 +1,4 @@
 import os
-import shutil
 from bs4 import BeautifulSoup
 
 from django.conf import settings

@@ -2,7 +2,7 @@ from .base import *
 
 SECRET_KEY = 'my-secret-key-goes-here'
 
-CORS_ORIGIN = 'http://localhost:3000'
+CORS_ORIGIN = 'http://127.0.0.1:3000'
 
 DEBUG = True
 
