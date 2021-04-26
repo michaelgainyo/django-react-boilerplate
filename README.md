@@ -28,7 +28,7 @@ cd client/
 npm install
 ```
 
-Build the project
+Build the project and run the server
 
 ```
 ./manage.py build
