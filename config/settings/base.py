@@ -1,5 +1,20 @@
 
+import environ
 from pathlib import Path
+
+env = environ.Env(
+    DEBUG=(bool, False),
+    SECRET_KEY=(str, 'my-secret-key-goes-here'),
+
+    GH_DB_NAME=(str, 'postgres'),
+    GH_DB_USER=(str, 'postgres'),
+    GH_DB_PWD=(str, 'postgres'),
+    GH_DB_HOST=(str, '127.0.0.1'),
+    GH_DB_PORT=(str, '5432'),
+)
+
+environ.Env.read_env()
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -9,22 +24,33 @@ BUILD_DIR = CLIENT_DIR / 'build'
 
 CORS_ORIGIN = None
 
-SECRET_KEY = 'my-secret-key-goes-here'
 
-DEBUG = False
+SECRET_KEY = env('SECRET_KEY')
+
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = []
 
+
 INSTALLED_APPS = [
+    # DJANGO
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
 
-    # Add this line
-    'myapp',
+    # VENDORS
+    'rest_framework',
+
+    # MIQ
+    'miq.apps.MiqConfig',
+
+    # APPS
 ]
 
 MIDDLEWARE = [
@@ -42,7 +68,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATES_DIR],  # Update this line
+        'DIRS': [TEMPLATES_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -71,15 +97,31 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator', },
 ]
 
-LANGUAGE_CODE = 'en-us'
+"""
+# USER MODEL
+"""
 
-TIME_ZONE = 'UTC'
+AUTH_USER_MODEL = 'miq.User'
 
-USE_I18N = True
+"""
+# SITE
+"""
 
-USE_L10N = True
+SITE_ID = 1
+
+
+"""
+LANG & LOCATION
+"""
 
 USE_TZ = True
+USE_L10N = True
+USE_I18N = True
+TIME_ZONE = 'America/New_York'
+LANGUAGE_CODE = 'en-us'
 
-STATIC_URL = '/static/'
+"""
+AUTO FIELD
+"""
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
