@@ -1,4 +1,4 @@
-# How to get Django and React to work together
+# How to get Django and React to work together.
 
 This repo follows the blog post on [how to setup django and react with minimal configuration](http://michaelgainyo.com/articles/how-to-get-django-and-reactjs-to-work-together/)
 
