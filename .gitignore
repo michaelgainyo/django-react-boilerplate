@@ -11,6 +11,7 @@ db.sqlite3
 db.sqlite3-journal
 .vscode/
 
+/config/settings/.env
 templates/base-react.html
 config/settings/production.py
 

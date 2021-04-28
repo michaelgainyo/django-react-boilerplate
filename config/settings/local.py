@@ -1,27 +1,69 @@
+import os
+
 from .base import *
 
 SECRET_KEY = 'my-secret-key-goes-here'
 
 CORS_ORIGIN = 'http://127.0.0.1:3000'
 
-DEBUG = True
-
 ALLOWED_HOSTS = ['*']
-
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PWD'),
+        'HOST': '',
+        'PORT': '',
     }
 }
 
+"""
+# Testing with github actions
+"""
+
+if os.environ.get('GITHUB_WORKFLOW'):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': env('GH_DB_NAME'),
+            'USER': env('GH_DB_USER'),
+            'PASSWORD': env('GH_DB_PWD'),
+            'HOST': env('GH_DB_HOST'),
+            'PORT': env('GH_DB_PORT'),
+        }
+    }
+
+
+"""
+# MIDDLEWARE
+"""
+
 MIDDLEWARE = [
     # CORS
-    'config.middleware.CORSMiddleware',
+    'miq.middleware.CORSMiddleware',
 
     *MIDDLEWARE,
 ]
+
+
+"""
+# REST FRAMEWORK
+"""
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',  # Set for all views
+    ],
+
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 16,
+}
 
 # MEDIA & STATIC
 
