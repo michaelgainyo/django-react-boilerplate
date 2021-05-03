@@ -8,13 +8,13 @@ I have broken the steps by branches so you can follow along.
 
 In your working directory:
 
-```
+```bash
 git clone https://github.com/marqetintl/django-react-boilerplate.git
 ```
 
 Next, create a virtual environment called `env` and activate it with:
 
-```
+```bash
 cd  django-react-boilerplate
 python3 -m venv env
 source env/bin/activate
@@ -22,7 +22,7 @@ source env/bin/activate
 
 Install dependencies:
 
-```
+```bash
 pip3 install -r requirements.txt
 cd client/
 npm install
@@ -30,7 +30,7 @@ npm install
 
 Build the project and run the server
 
-```
+```bash
 ./manage.py build
 ./manage.py runserver
 ```
